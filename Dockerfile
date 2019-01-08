@@ -1,6 +1,7 @@
 FROM matomo:apache
 
-RUN a2enmod rewrite headers ssl && \
+RUN a2ensite default-ssl.conf && \
+    a2enmod rewrite headers ssl && \
     openssl genrsa -passout pass:x -out /etc/ssl/private/matomo.pass.key 2048 && \
     openssl rsa -passin pass:x -in /etc/ssl/private/matomo.pass.key -out /etc/ssl/private/matomo.key && \
     openssl req -new -key /etc/ssl/private/matomo.key -out /etc/ssl/private/matomo.csr -batch && \
